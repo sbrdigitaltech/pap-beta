@@ -1,0 +1,56 @@
+# papindia.in — Apache config for GoDaddy shared hosting
+Options -Indexes
+
+RewriteEngine On
+
+# Canonical host: www -> non-www, over HTTPS.
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+# Force HTTPS. Enabled 15 Aug 2026 after confirming the GoDaddy-issued
+# certificate serves papindia.in correctly. X-Forwarded-Proto is checked too
+# because the host terminates TLS at a proxy.
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Trailing slash: /about/ -> /about. Pages here are files, not directories;
+# without this the host 500s on the slash form. Real directories are exempt.
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)/$ /$1 [R=301,L,QSA]
+
+# Clean URLs: old .html paths 301 to the extensionless form so each page has
+# one canonical URL. THE_REQUEST (the original client request line) is matched
+# so these never re-fire after the internal rewrite below.
+# /index.html -> /
+RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+RewriteRule ^index\.html$ /? [R=301,L]
+# /about.html -> /about   (404 excluded so it keeps its 404 status)
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+RewriteCond %1 !^404$
+RewriteRule ^ /%1? [R=301,L]
+
+# Serve /about from /about.html. Existing files (.js, .xml, images) never
+# match because appending .html must yield a real file. /404 is excluded so
+# a direct hit serves the error page with a 404 status, not a soft 200.
+RewriteCond %{REQUEST_URI} !^/404$
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]
+
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/json text/plain
+</IfModule>
+
+# Cache policy: HTML always revalidates, assets cache for 30 days.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType text/css "access plus 30 days"
+  ExpiresByType application/javascript "access plus 30 days"
+</IfModule>
+
+ErrorDocument 404 /404.html
