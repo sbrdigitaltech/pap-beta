@@ -18,10 +18,33 @@
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
-<style>*{box-sizing:border-box}
+<!-- Poppins is self-hosted (site/fonts, rules at the top of the CSS below):
+     no render-blocking third-party font request and no cross-origin font
+     fetch on first paint. The italic-700 face is preloaded because the hero
+     and section headings set whole words in italic. -->
+<link rel="preload" href="fonts/poppins-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/poppins-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/poppins-italic-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:Poppins;font-style:normal;font-weight:400;font-display:swap;src:url(fonts/poppins-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:Poppins;font-style:normal;font-weight:400;font-display:swap;src:url(fonts/poppins-400-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:Poppins;font-style:normal;font-weight:400;font-display:swap;src:url(fonts/poppins-400-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09}
+@font-face{font-family:Poppins;font-style:normal;font-weight:500;font-display:swap;src:url(fonts/poppins-500-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:Poppins;font-style:normal;font-weight:500;font-display:swap;src:url(fonts/poppins-500-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:Poppins;font-style:normal;font-weight:500;font-display:swap;src:url(fonts/poppins-500-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09}
+@font-face{font-family:Poppins;font-style:normal;font-weight:600;font-display:swap;src:url(fonts/poppins-600-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:Poppins;font-style:normal;font-weight:600;font-display:swap;src:url(fonts/poppins-600-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:Poppins;font-style:normal;font-weight:600;font-display:swap;src:url(fonts/poppins-600-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09}
+@font-face{font-family:Poppins;font-style:normal;font-weight:700;font-display:swap;src:url(fonts/poppins-700-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:Poppins;font-style:normal;font-weight:700;font-display:swap;src:url(fonts/poppins-700-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:Poppins;font-style:normal;font-weight:700;font-display:swap;src:url(fonts/poppins-700-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09}
+@font-face{font-family:Poppins;font-style:italic;font-weight:600;font-display:swap;src:url(fonts/poppins-italic-600-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:Poppins;font-style:italic;font-weight:600;font-display:swap;src:url(fonts/poppins-italic-600-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:Poppins;font-style:italic;font-weight:600;font-display:swap;src:url(fonts/poppins-italic-600-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09}
+@font-face{font-family:Poppins;font-style:italic;font-weight:700;font-display:swap;src:url(fonts/poppins-italic-700-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:Poppins;font-style:italic;font-weight:700;font-display:swap;src:url(fonts/poppins-italic-700-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:Poppins;font-style:italic;font-weight:700;font-display:swap;src:url(fonts/poppins-italic-700-devanagari.woff2) format('woff2');unicode-range:U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09}
+*{box-sizing:border-box}
 :root{--ease-out:cubic-bezier(.23,1,.32,1)}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;font-family:Poppins,-apple-system,'Segoe UI',Roboto,sans-serif;background:#F8FAF9;color:#374151;-webkit-font-smoothing:antialiased}
@@ -337,19 +360,19 @@ body:not(.pg-index) #main>section:first-of-type{animation:rise .55s var(--ease-o
     <p style="margin:0 0 32px;font-size:16px;color:#4B5563">Recognition and press for PAP India and its leadership, including founder <a href="./team.html#amrinder-singh" style="color:#1A7A61;font-weight:600">Amrinder Singh</a>.</p>
     <div class="masonry">
       <div data-reveal data-media="0" class="card" style="cursor:zoom-in;break-inside:avoid;margin-bottom:20px;border-radius:16px;overflow:hidden" role="button" tabindex="0" aria-label="View larger: Corporate Trendz: 10 Leading Real Estate & Construction Leaders in India 2025">
-        <picture><source srcset="img/media-cover.webp" type="image/webp"><img src="img/media-cover.jpg" alt="Corporate Trendz: 10 Leading Real Estate & Construction Leaders in India 2025" width="699" height="900" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></picture>
+        <picture><source srcset="img/media-cover-480.webp 480w, img/media-cover.webp 699w" sizes="(max-width: 720px) 92vw, 50vw" type="image/webp"><img src="img/media-cover.jpg" alt="Corporate Trendz: 10 Leading Real Estate & Construction Leaders in India 2025" width="699" height="900" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></picture>
       </div>
       <div data-reveal data-media="1" class="card" style="cursor:zoom-in;break-inside:avoid;margin-bottom:20px;border-radius:16px;overflow:hidden" role="button" tabindex="0" aria-label="View larger: Magazine feature on Amrinder Singh">
-        <picture><source srcset="img/media-spread.webp" type="image/webp"><img src="img/media-spread.jpg" alt="Magazine feature on Amrinder Singh" width="1100" height="716" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></picture>
+        <picture><source srcset="img/media-spread-480.webp 480w, img/media-spread-800.webp 800w, img/media-spread.webp 1100w" sizes="(max-width: 720px) 92vw, 50vw" type="image/webp"><img src="img/media-spread.jpg" alt="Magazine feature on Amrinder Singh" width="1100" height="716" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></picture>
       </div>
       <div data-reveal data-media="2" class="card" style="cursor:zoom-in;break-inside:avoid;margin-bottom:20px;border-radius:16px;overflow:hidden" role="button" tabindex="0" aria-label="View larger: Corporate Trendz certificate">
-        <picture><source srcset="img/media-certificate.webp" type="image/webp"><img src="img/media-certificate.jpg" alt="Corporate Trendz certificate" width="900" height="653" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></picture>
+        <picture><source srcset="img/media-certificate-480.webp 480w, img/media-certificate.webp 900w" sizes="(max-width: 720px) 92vw, 50vw" type="image/webp"><img src="img/media-certificate.jpg" alt="Corporate Trendz certificate" width="900" height="653" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></picture>
       </div>
       <div data-reveal data-media="3" class="card" style="cursor:zoom-in;break-inside:avoid;margin-bottom:20px;border-radius:16px;overflow:hidden" role="button" tabindex="0" aria-label="View larger: Feature article on property management">
-        <picture><source srcset="img/media-article.webp" type="image/webp"><img src="img/media-article.jpg" alt="Feature article on property management" width="554" height="700" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></picture>
+        <picture><source srcset="img/media-article.webp" sizes="(max-width: 720px) 92vw, 50vw" type="image/webp"><img src="img/media-article.jpg" alt="Feature article on property management" width="554" height="700" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></picture>
       </div>
       <div data-reveal data-media="4" class="card" style="cursor:zoom-in;break-inside:avoid;margin-bottom:20px;border-radius:16px;overflow:hidden" role="button" tabindex="0" aria-label="View larger: Mall Marketing: 24x7 responsibility, The Mandeep Kaur Tangra Show">
-        <picture><source srcset="img/media-podcast.webp" type="image/webp"><img src="img/media-podcast.jpg" alt="Mall Marketing: 24x7 responsibility, The Mandeep Kaur Tangra Show" width="510" height="900" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></picture>
+        <picture><source srcset="img/media-podcast.webp" sizes="(max-width: 720px) 92vw, 50vw" type="image/webp"><img src="img/media-podcast.jpg" alt="Mall Marketing: 24x7 responsibility, The Mandeep Kaur Tangra Show" width="510" height="900" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></picture>
       </div>
     </div>
     <div id="pap-lightbox" class="lightbox" aria-hidden="true">
@@ -404,6 +427,8 @@ body:not(.pg-index) #main>section:first-of-type{animation:rise .55s var(--ease-o
   </div>
 </footer>
 </div>
-<script src="site.js" defer></script>
+<!-- site.js is cached hard (see .htaccess); bump ?v= whenever the JS const
+     below changes so returning visitors get the new one. -->
+<script src="site.js?v=2" defer></script>
 </body>
 </html>

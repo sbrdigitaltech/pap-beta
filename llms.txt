@@ -49,3 +49,4 @@ Digital partner: Apoorv Rastogi, Co-Founder & Director, SBR Digital.
 - [Projects](https://papindia.in/projects)
 - [Team](https://papindia.in/team)
 - [Contact](https://papindia.in/contact)
+- [Full reference](https://papindia.in/llms-full.txt)

@@ -42,7 +42,9 @@ RewriteRule ^(.+)$ $1.html [L]
   AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/json text/plain
 </IfModule>
 
-# Cache policy: HTML always revalidates, assets cache for 30 days.
+# Cache policy: HTML always revalidates, assets cache for 30 days (fonts a
+# year — they only change if fetch-fonts.js is re-run, which renames nothing
+# but the FileMatch below still bounds the damage to a hard refresh).
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType text/html "access plus 0 seconds"
@@ -51,6 +53,21 @@ RewriteRule ^(.+)$ $1.html [L]
   ExpiresByType image/jpeg "access plus 30 days"
   ExpiresByType text/css "access plus 30 days"
   ExpiresByType application/javascript "access plus 30 days"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# Extension-based Cache-Control: independent of the MIME type the host maps.
+# GoDaddy serves .js as text/javascript, which the ExpiresByType
+# application/javascript line above never matched — Lighthouse measured
+# site.js at a zero-second cache lifetime because of exactly that.
+AddType font/woff2 .woff2
+<IfModule mod_headers.c>
+  <FilesMatch "\.(webp|png|jpe?g|css|js|woff2)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.woff2$">
+    Header set Cache-Control "public, max-age=31536000"
+  </FilesMatch>
 </IfModule>
 
 ErrorDocument 404 /404.html
